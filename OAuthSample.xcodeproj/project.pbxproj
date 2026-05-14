@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9400C9742FB689AD00D5CD68 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9400C9732FB689AD00D5CD68 /* WebViewController.swift */; };
 		A101 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B101 /* AppDelegate.swift */; };
 		A102 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102 /* SceneDelegate.swift */; };
 		A103 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B103 /* ViewController.swift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9400C9732FB689AD00D5CD68 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B001 /* OAuthSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OAuthSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B101 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B102 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,7 +28,8 @@
 		C001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = ();
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -43,6 +46,7 @@
 		D002 /* OAuthSample */ = {
 			isa = PBXGroup;
 			children = (
+				9400C9732FB689AD00D5CD68 /* WebViewController.swift */,
 				B101 /* AppDelegate.swift */,
 				B102 /* SceneDelegate.swift */,
 				B103 /* ViewController.swift */,
@@ -71,8 +75,10 @@
 				C002 /* Sources */,
 				C003 /* Resources */,
 			);
-			buildRules = ();
-			dependencies = ();
+			buildRules = (
+			);
+			dependencies = (
+			);
 			name = OAuthSample;
 			productName = OAuthSample;
 			productReference = B001 /* OAuthSample.app */;
@@ -96,12 +102,18 @@
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = ja;
 			hasScannedForEncodings = 0;
-			knownRegions = (en, ja, Base);
+			knownRegions = (
+				en,
+				ja,
+				Base,
+			);
 			mainGroup = D001;
 			productRefGroup = D003 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
-			targets = (E001 /* OAuthSample */);
+			targets = (
+				E001 /* OAuthSample */,
+			);
 		};
 /* End PBXProject section */
 
@@ -109,7 +121,8 @@
 		C003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = ();
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -122,6 +135,7 @@
 				A101 /* AppDelegate.swift in Sources */,
 				A102 /* SceneDelegate.swift in Sources */,
 				A103 /* ViewController.swift in Sources */,
+				9400C9742FB689AD00D5CD68 /* WebViewController.swift in Sources */,
 				A104 /* URLCallbackHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,7 +161,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)");
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -183,15 +200,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7545JNKUBJ;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = OAuthSample/Info.plist;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGNING_REQUIRED = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.example.OAuthSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -207,15 +227,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CODE_SIGNING_REQUIRED = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = OAuthSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.example.OAuthSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -231,18 +254,23 @@
 /* Begin XCConfigurationList section */
 		F001 /* Build configuration list for PBXProject "OAuthSample" */ = {
 			isa = XCConfigurationList;
-			buildConfigurations = (F011 /* Debug */, F012 /* Release */);
+			buildConfigurations = (
+				F011 /* Debug */,
+				F012 /* Release */,
+			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		F002 /* Build configuration list for PBXNativeTarget "OAuthSample" */ = {
 			isa = XCConfigurationList;
-			buildConfigurations = (F021 /* Debug */, F022 /* Release */);
+			buildConfigurations = (
+				F021 /* Debug */,
+				F022 /* Release */,
+			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 	};
 	rootObject = E000 /* Project object */;
 }
