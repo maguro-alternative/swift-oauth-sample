@@ -12,14 +12,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()
 
-        // コールドスタート時にURLが渡されるケース
+        // macOS では SFSafariViewController がアプリ内ブラウザにならないため
+        // コールバックを処理しない
+        guard !ProcessInfo.processInfo.isiOSAppOnMac else { return }
+
         for context in connectionOptions.urlContexts {
             URLCallbackHandler.shared.handle(context.url)
         }
     }
 
-    // フォアグラウンド中に myapp://callback が来るケース
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard !ProcessInfo.processInfo.isiOSAppOnMac else { return }
+
         for context in URLContexts {
             URLCallbackHandler.shared.handle(context.url)
         }

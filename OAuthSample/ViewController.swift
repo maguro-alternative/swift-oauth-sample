@@ -1,5 +1,4 @@
 import UIKit
-import SafariServices
 
 class ViewController: UIViewController {
 
@@ -35,7 +34,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = "OAuth サンプル（SFSafariViewController）"
+        title = "OAuth サンプル（WKWebView）"
 
         setupLayout()
         loginButton.addTarget(self, action: #selector(startLogin), for: .touchUpInside)
@@ -73,29 +72,29 @@ class ViewController: UIViewController {
     // MARK: - Login
 
     @objc private func startLogin() {
-        // 本番: "https://auth.example.com"
-        // モック: "http://localhost:8080"  (MockServer 起動時)
+        // "http://localhost:8080"  (MockServer 起動時)
         let baseURL = "http://localhost:8080"
 
         // response_type=id_token token → implicit flow（フラグメントでトークン返却）
-        // redirect_uri=myapp://callback
+        // redirect_uri=oauthsample://callback
         var components = URLComponents(string: "\(baseURL)/oauth/authorize")!
         components.queryItems = [
             URLQueryItem(name: "response_type", value: "id_token token"),
             URLQueryItem(name: "client_id", value: "12345"),
-            URLQueryItem(name: "redirect_uri", value: "myapp://callback"),
+            URLQueryItem(name: "redirect_uri", value: "oauthsample://callback"),
             URLQueryItem(name: "scope", value: "openid profile"),
         ]
 
         guard let url = components.url else { return }
 
-        // ── iOS: SafariVC はアプリ内埋め込み。リダイレクトは OS がインターセプトして
-        //         scene(_:openURLContexts:) に届く。
-        // ── macOS (iOS互換): SafariVC → 外部 Safari ウィンドウ。
-        //         myapp:// は macOS に登録されていないため、リダイレクト後に何も起きない。
-        let safari = SFSafariViewController(url: url)
-        safari.delegate = self
-        present(safari, animated: true)
+        // decidePolicyForNavigationAction でコールバックをインターセプト
+        let webVC = WebViewController(url: url, callbackScheme: "oauthsample") { [weak self] callbackURL in
+            DispatchQueue.main.async {
+                self?.dismiss(animated: true)
+                URLCallbackHandler.shared.handle(callbackURL)
+            }
+        }
+        present(webVC, animated: true)
 
         setStatus("ブラウザを開きました...\n\nURL:\n\(url.absoluteString)")
     }
@@ -103,8 +102,6 @@ class ViewController: UIViewController {
     // MARK: - Callback
 
     private func handleCallbackResult(_ result: Result<OAuthTokens, CallbackError>) {
-        dismiss(animated: true)
-
         switch result {
         case .success(let tokens):
             setStatus("""
@@ -133,20 +130,13 @@ class ViewController: UIViewController {
 
     private func showPlatformWarningIfNeeded() {
         #if targetEnvironment(macCatalyst)
-        platformWarningLabel.text = "Mac Catalyst: SFSafariVC は外部 Safari を開きます。myapp:// コールバックは届きません。"
+        platformWarningLabel.text = "Mac Catalyst: SFSafariVC は外部 Safari を開きます。oauthsample:// コールバックは届きません。"
         #else
         if ProcessInfo.processInfo.isMacCatalystApp
             || ProcessInfo.processInfo.isiOSAppOnMac {
-            platformWarningLabel.text = "macOS (iOS互換モード): myapp:// がシステムに登録されないためコールバックは届きません。"
+            platformWarningLabel.text = "macOS (iOS互換モード): oauthsample:// がシステムに登録されないためコールバックは届きません。"
         }
         #endif
     }
 }
 
-// MARK: - SFSafariViewControllerDelegate
-
-extension ViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        setStatus("キャンセルされました（または macOS でコールバックが届かなかった）")
-    }
-}

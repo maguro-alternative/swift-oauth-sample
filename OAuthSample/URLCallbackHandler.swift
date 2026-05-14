@@ -1,6 +1,6 @@
 import Foundation
 
-// myapp://callback?id_token=XXX&access_token=XXX を処理するシングルトン
+// oauthsample://callback?id_token=XXX&access_token=XXX を処理するシングルトン
 final class URLCallbackHandler {
     static let shared = URLCallbackHandler()
     private init() {}
@@ -9,7 +9,7 @@ final class URLCallbackHandler {
 
     @discardableResult
     func handle(_ url: URL) -> Bool {
-        guard url.scheme == "myapp", url.host == "callback" else { return false }
+        guard url.scheme == "oauthsample", url.host == "callback" else { return false }
 
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         let params = Dictionary(
