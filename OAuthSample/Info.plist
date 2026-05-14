@@ -22,10 +22,10 @@
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>CFBundleURLName</key>
-            <string>myapp</string>
+            <string>oauthsample</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>myapp</string>
+                <string>oauthsample</string>
             </array>
         </dict>
     </array>

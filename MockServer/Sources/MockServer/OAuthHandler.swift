@@ -11,13 +11,18 @@ func oauthHandler(req: HTTPRequest) -> HTTPResponse {
     switch (req.method, req.path) {
 
     case (.GET, "/oauth/authorize"):
-        let redirectURI = req.query["redirect_uri"] ?? "myapp://callback"
+        let redirectURI = req.query["redirect_uri"] ?? "oauthsample://callback"
+        let state       = req.query["state"] ?? ""
+        return .ok(html: authLanding(redirectURI: redirectURI, state: state))
+
+    case (.GET, "/oauth/login-form"):
+        let redirectURI = req.query["redirect_uri"] ?? "oauthsample://callback"
         let state       = req.query["state"] ?? ""
         return .ok(html: authPage(redirectURI: redirectURI, state: state))
 
     case (.POST, "/oauth/login"):
         let bodyParams  = HTTPRequest.parseQuery(req.body)
-        let redirectURI = bodyParams["redirect_uri"] ?? "myapp://callback"
+        let redirectURI = bodyParams["redirect_uri"] ?? "oauthsample://callback"
         let result      = bodyParams["result"] ?? "success"
 
         let location: String
@@ -38,6 +43,38 @@ func oauthHandler(req: HTTPRequest) -> HTTPResponse {
 }
 
 // MARK: - HTML
+
+// 最初に開くページ: 実際の認証フォームを window.open() で新しいウィンドウに開く
+// （シノマスの実際の認証サーバーと同じ挙動を再現）
+private func authLanding(redirectURI: String, state: String) -> String {
+    let loginURL = "/oauth/login-form?redirect_uri=\(redirectURI)&state=\(state)"
+    return """
+    <!DOCTYPE html>
+    <html lang="ja">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Example Auth</title>
+      <style>
+        body { font-family: -apple-system, sans-serif; max-width: 400px;
+               margin: 60px auto; padding: 0 20px; text-align: center; }
+        button { width: 100%; padding: 14px; color: white; background: #5856d6;
+                 border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        .note { font-size: 12px; color: #888; margin-top: 16px; }
+      </style>
+    </head>
+    <body>
+      <h1>Example Auth</h1>
+      <p>ログインするには下のボタンを押してください</p>
+      <button onclick="window.open('\(loginURL)', '_blank')">ログインページを開く</button>
+      <p class="note">
+        iOS: 同じ WKWebView 内で開く → コールバック受信可<br>
+        macOS: 外部 Safari で開く → コールバック受信不可
+      </p>
+    </body>
+    </html>
+    """
+}
 
 private func authPage(redirectURI: String, state: String) -> String {
     """
@@ -71,7 +108,7 @@ private func authPage(redirectURI: String, state: String) -> String {
       </form>
       <p class="note">
         iOS: 成功するとアプリに戻ってトークンが表示される<br>
-        macOS: myapp:// が処理されず何も起きない
+        macOS: oauthsample:// が処理されず何も起きない
       </p>
     </body>
     </html>

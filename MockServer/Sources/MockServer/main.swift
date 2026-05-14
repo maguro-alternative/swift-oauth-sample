@@ -19,7 +19,7 @@ do {
       1. iOS シミュレータで OAuthSample を起動
       2. 「ログイン」ボタンを押す
          -> iOS: トークンが表示される
-         -> macOS: 何も起きない (myapp:// が届かない)
+         -> macOS: 何も起きない (oauthsample:// が届かない)
 
     Ctrl+C で停止
     """)
