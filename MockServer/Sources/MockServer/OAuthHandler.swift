@@ -45,7 +45,6 @@ func oauthHandler(req: HTTPRequest) -> HTTPResponse {
 // MARK: - HTML
 
 // 最初に開くページ: 実際の認証フォームを window.open() で新しいウィンドウに開く
-// （シノマスの実際の認証サーバーと同じ挙動を再現）
 private func authLanding(redirectURI: String, state: String) -> String {
     let loginURL = "/oauth/login-form?redirect_uri=\(redirectURI)&state=\(state)"
     return """

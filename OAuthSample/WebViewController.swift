@@ -63,7 +63,7 @@ extension WebViewController: WKUIDelegate {
         guard let url = navigationAction.request.url else { return nil }
 
         if ProcessInfo.processInfo.isiOSAppOnMac {
-            // macOS: 外部Safariで開く → コールバックがアプリに戻らない（シノマスと同じ挙動）
+            // macOS: 外部Safariで開く → コールバックがアプリに戻らない
             UIApplication.shared.open(url)
         } else {
             // iOS: 同じWKWebView内でそのまま読み込む → callbackをインターセプト可能
